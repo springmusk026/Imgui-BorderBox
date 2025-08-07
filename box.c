@@ -1,21 +1,39 @@
-if(espBox) {
-                                                //esp.DrawBoX4Line(PositionHip.X - (boxWidth / 2), (screenHeight - PositionHead.Y), boxWidth, boxHeight,EspLineColor,2);
-                                                int X = PositionHip.X - (boxWidth / 2);
-                                                int Y = screenHeight - PositionHead.Y;
-                                                int w = boxWidth;
-                                                int h = boxHeight;
-                                                int iw = w / 4;
-                                                int ih = h / 4;
-                                                // top
+if (espBox) {
+    // Calculate top-left corner of the box
+    int boxX = PositionHip.X - (boxWidth / 2);
+    int boxY = screenHeight - PositionHead.Y;
 
-                                                draw->AddLine(ImVec2(X, Y), ImVec2(X + iw, Y), ToColor(Box), 1.0f);
-                                                draw->AddLine(ImVec2(X + w - iw, Y), ImVec2(X + w, Y), ToColor(Box), 1.0f);
-                                                draw->AddLine(ImVec2(X, Y), ImVec2(X, Y + ih), ToColor(Box), 1.0f);
-                                                draw->AddLine(ImVec2(X + w - 1, Y), ImVec2(X + w - 1, Y + ih), ToColor(Box), 1.0f);
+    // Define box dimensions
+    int boxW = boxWidth;
+    int boxH = boxHeight;
 
-                                                // bottom
-                                                draw->AddLine(ImVec2(X, Y + h), ImVec2(X + iw, Y + h), ToColor(Box), 1.0f);
-                                                draw->AddLine(ImVec2(X + w - iw, Y + h), ImVec2(X + w, Y + h), ToColor(Box), 1.0f);
-                                                draw->AddLine(ImVec2(X, Y + h - ih), ImVec2(X, Y + h), ToColor(Box), 1.0f);
-                                                draw->AddLine(ImVec2(X + w - 1, Y + h - ih), ImVec2(X + w - 1, Y + h), ToColor(Box), 1.0f);
-                                            }
+    // Define the size of the corner lines (1/4th of width and height)
+    int cornerW = boxW / 4;
+    int cornerH = boxH / 4;
+
+    ImColor color = ToColor(Box); // Convert the box color once for reuse
+
+    // ──────── TOP CORNERS ────────
+
+    // Top-left horizontal
+    draw->AddLine(ImVec2(boxX, boxY), ImVec2(boxX + cornerW, boxY), color, 1.0f);
+    // Top-right horizontal
+    draw->AddLine(ImVec2(boxX + boxW - cornerW, boxY), ImVec2(boxX + boxW, boxY), color, 1.0f);
+
+    // Top-left vertical
+    draw->AddLine(ImVec2(boxX, boxY), ImVec2(boxX, boxY + cornerH), color, 1.0f);
+    // Top-right vertical
+    draw->AddLine(ImVec2(boxX + boxW - 1, boxY), ImVec2(boxX + boxW - 1, boxY + cornerH), color, 1.0f);
+
+    // ──────── BOTTOM CORNERS ────────
+
+    // Bottom-left horizontal
+    draw->AddLine(ImVec2(boxX, boxY + boxH), ImVec2(boxX + cornerW, boxY + boxH), color, 1.0f);
+    // Bottom-right horizontal
+    draw->AddLine(ImVec2(boxX + boxW - cornerW, boxY + boxH), ImVec2(boxX + boxW, boxY + boxH), color, 1.0f);
+
+    // Bottom-left vertical
+    draw->AddLine(ImVec2(boxX, boxY + boxH - cornerH), ImVec2(boxX, boxY + boxH), color, 1.0f);
+    // Bottom-right vertical
+    draw->AddLine(ImVec2(boxX + boxW - 1, boxY + boxH - cornerH), ImVec2(boxX + boxW - 1, boxY + boxH), color, 1.0f);
+}
